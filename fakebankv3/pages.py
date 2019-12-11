@@ -66,8 +66,7 @@ class fakekebankvKeyboard(MappedVirtKeyboard):
         self.check_symbols(self.symbols, basepage.browser.responses_dirname)
 
     def get_string_code(self, string):
-        return super(fakekebankvKeyboard,self).get_string_code(string)+ self.codesep
-
+        return super(fakekebankvKeyboard, self).get_string_code(string) + self.codesep
 
 
 class LoginPage(HTMLPage):
@@ -89,7 +88,6 @@ class LoginPage(HTMLPage):
 
         password = vk.get_string_code(passwd)
 
-
         form = self.get_form(xpath='/html/body/fieldset/form')
         form['login'] = username
         form['code'] = password
@@ -101,12 +99,12 @@ class LoginPage(HTMLPage):
 
 class ListPage(LoggedPage, HTMLPage):
     # is_here = '//div[@class="account"]'
+
     @method
     class iter_accounts(ListElement):
         item_xpath = '/html/body/div/div'
 
         class item(ItemElement):
-
             klass = Account
 
             def obj_id(self):
@@ -124,6 +122,7 @@ class ListPage(LoggedPage, HTMLPage):
     @pagination
     @method
     class iter_history(DictElement):
+
         def find_elements(self):
 
             add_scripts = '/html/body/script[3]'
@@ -133,11 +132,11 @@ class ListPage(LoggedPage, HTMLPage):
             for transaction in transactions:
 
                 for transaction_line in transaction:
-                    v = re.search(r"\nadd_transaction\((?P<content>.+)\)",transaction_line)
+                    v = re.search(r"\nadd_transaction\((?P<content>.+)\)", transaction_line)
                     if v is not None:
                         key_values = v.group('content').split(',')
-                        yield {'label':key_values[0].replace('"',''),"date":key_values[1].replace('"',''),"amount":key_values[2]}
-
+                        yield {'label': key_values[0].replace('"', ''), "date": key_values[1].replace('"', ''),
+                               "amount": key_values[2]}
 
         class item(ItemElement):
             klass = Transaction
@@ -148,5 +147,11 @@ class ListPage(LoggedPage, HTMLPage):
 
         def next_page(self):
             if Link(u'//a[text()="▶"]')(self) is not None:
-                self.page.browser.form['page'] = CleanDecimal(Link(u'//a[text()="▶"]'))(self)
-                return requests.Request("POST", self.page.url, data=self.page.browser.form)
+
+                form = self.page.get_form(xpath='//*[@id="history_form"]')
+
+                form['page'] = CleanDecimal(Link(u'//a[text()="▶"]'))(self)
+
+
+                return requests.Request("POST", self.page.url, data=form)
+
