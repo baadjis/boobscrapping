@@ -57,8 +57,8 @@ class Fakebankv3Browser(LoginBrowser,PagesBrowser):
 
     @need_login
     def iter_history(self,id):
-        self.form = {'action': 'history','account_id':id,"page":"1"}
-        self.accounts.go(data=self.form)
+        form = {'action': 'history','account_id':id,"page":"1"}
+        self.accounts.go(data=form)
         for transaction in self.page.iter_history():
             yield transaction
 
