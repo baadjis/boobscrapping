@@ -32,9 +32,9 @@ __all__=['Fakebankv3Browser']
 class Fakebankv3Browser(LoginBrowser,PagesBrowser):
     BASEURL = 'https://people.lan.budget-insight.com/'
 
-    login = URL('/~ntome/fake_bank.wsgi/v3/login', LoginPage)
-    accounts = URL('/~ntome/fake_bank.wsgi/v3/app',ListPage)
-    home = URL('/$')
+    login = URL(r'/~ntome/fake_bank.wsgi/v3/login', LoginPage)
+    accounts = URL(r'/~ntome/fake_bank.wsgi/v3/app',ListPage)
+    home = URL(r'/$')
     form={}
     def go_home(self):
         self.home.go()
