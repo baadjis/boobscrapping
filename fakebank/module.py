@@ -26,7 +26,7 @@ from weboob.tools.capabilities.bank.transactions import sorted_transactions
 from weboob.tools.value import Value, ValueBool, ValueInt, ValueBackendPassword
 import logging
 
-logging.basicConfig(level=logging.INFO)
+
 from .browser import FakebankBrowser
 
 __all__ = ['FakebankModule']
@@ -52,18 +52,15 @@ class FakebankModule(Module, CapBank):
     def create_default_browser(self):
         return self.create_browser(self.config['username'].get(), self.config['password'].get())
 
-        # return find_object(self.browser.get_accounts_list(), id=_id, error=AccountNotFound)
+       
 
 
     def get_account(self, num):
         return self.browser.get_account(num)
 
 
-    # def iter_coming(self, account):
-    #     return self.browser.get_coming(account)
-
     def iter_history(self, account):
                 transactions = sorted_transactions(self.browser.get_history(account))
                 return transactions
 
-        # account = find_object(self.browser.iter_accounts_list(), error=AccountNotFound, id=_id)
+     
