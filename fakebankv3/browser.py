@@ -32,10 +32,10 @@ __all__=['Fakebankv3Browser']
 class Fakebankv3Browser(LoginBrowser,PagesBrowser):
     BASEURL = 'https://people.lan.budget-insight.com/'
 
-    login = URL(r'/~ntome/fake_bank.wsgi/v3/login', LoginPage)
-    accounts = URL(r'/~ntome/fake_bank.wsgi/v3/app',ListPage)
-    home = URL(r'/$')
-    form={}
+    login = URL('/~ntome/fake_bank.wsgi/v3/login', LoginPage)
+    accounts = URL('/~ntome/fake_bank.wsgi/v3/app',ListPage)
+    home = URL('/$')
+
     def go_home(self):
         self.home.go()
         assert self.home.is_here()
@@ -61,3 +61,4 @@ class Fakebankv3Browser(LoginBrowser,PagesBrowser):
         self.accounts.go(data=self.form)
         for transaction in self.page.iter_history():
             yield transaction
+
