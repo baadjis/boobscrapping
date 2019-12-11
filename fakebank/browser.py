@@ -52,8 +52,7 @@ class FakebankBrowser(LoginBrowser, PagesBrowser):
         self.login.stay_or_go()
         self.page.login(self.username, self.password)
 
-        # if self.login_error.is_here():
-        #     raise BrowserIncorrectPassword(self.page.get_error())
+
 
     @need_login
     def get_account(self, num):
@@ -62,12 +61,6 @@ class FakebankBrowser(LoginBrowser, PagesBrowser):
                 return account
         raise AccountNotFound()
 
-        # a = next(self.iter_accounts_list())
-        # print(a)
-        # if (a.id != id_):
-        #     raise AccountNotFound()
-        # return a
-    # @pagination
     @need_login
     def get_history(self, selected_account):
         # print(selected_account.url)
@@ -75,14 +68,4 @@ class FakebankBrowser(LoginBrowser, PagesBrowser):
         for transaction in self.page.iter_history():
             yield transaction
 
-    # page1 = URL('/page1\?id=(?P<id>.+)', Page1)
-    # page2 = URL('/page2', Page2)
-    #
-    # def get_stuff(self, _id):
-    #     self.page1.go(id=_id)
-    #
-    #     assert self.page1.is_here()
-    #     self.page.do_stuff(_id)
-    #
-    #     assert self.page2.is_here()
-    #     return self.page.do_more_stuff()
+
