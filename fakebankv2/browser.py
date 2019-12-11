@@ -33,7 +33,7 @@ class Fakebankv2Browser(LoginBrowser):
 
     login = URL(r'https://people.lan.budget-insight.com/~ntome/fake_bank.wsgi/v2/#login', LoginPage)
     accounts = URL(r'https://people.lan.budget-insight.com/~ntome/fake_bank.wsgi/v2/accounts.json', AccountPage)
-    history=URL('https://people.lan.budget-insight.com/~ntome/fake_bank.wsgi/v2/accounts/(?P<id>\d+).json', HistoryPage)
+    history=URL(r'https://people.lan.budget-insight.com/~ntome/fake_bank.wsgi/v2/accounts/(?P<id>\d+).json', HistoryPage)
 
 
     def __init__(self, username, password, *args, **kwargs):
